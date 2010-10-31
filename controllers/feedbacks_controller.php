@@ -56,7 +56,7 @@ class FeedbacksController extends FeedbackAppController {
 		
 		if (!empty($this->data)) {
 			
-			if ($enabled = true) { // replace with Configure::read('Feedback.db.enabled')
+			if (Configure::read('Feedback.db_enabled')) {
 				$saved = $this->Feedback->save($this->data);
 			} else {
 				$saved = true;
@@ -67,10 +67,10 @@ class FeedbacksController extends FeedbackAppController {
 				if (Configure::read('debug') > 0) {
 					$this->Email->delivery = 'debug';
 				}
-				$this->Email->to = 'support@21times.org'; // replace with Configure::read('Feedback.to_email')
+				$this->Email->to = Configure::read('Feedback.to_email');
 				$this->Email->from = $this->data['Feedback']['email'];
 				$this->Email->replyTo = $this->data['Feedback']['email'];
-				$this->Email->subject = 'New Feedback'; // replace with Configure::read('Feedback.subject')
+				$this->Email->subject = Configure::read('Feedback.subject');
 				$this->Email->template = 'feedback';
 				$this->Email->sendAs = 'text';
 				$this->set('feedback', $this->data);
@@ -133,7 +133,6 @@ class FeedbacksController extends FeedbackAppController {
 	 * @return	void
 	 */
 	public function admin_index() {
-		
 		$this->Feedback->recursive = -1;
 		$this->set('feedbacks', $this->paginate('Feedback'));
 		

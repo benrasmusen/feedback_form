@@ -8,13 +8,12 @@
  * @author		Ben Rasmusen <benrasmusen@gmail.com>
  */
 
-// To: email address that feedback is sent to
-Configure::write('Feedback.to_email', 'feedback@example.com');
+$config = array(
+	'to_email' 		=> 'feedback@example.com', 	// To: email address that feedback is sent to
+	'subject' 		=> 'New feedback message', 	// Subject line of feedback email
+	'db_enabled' 	=> true 					// Enable saving the feedback to the DB
+);
 
-// Subject line of feedback email
-Configure::write('Feedback.subject', 'New feedback message');
-
-// Enable saving the feedback to the DB
-Configure::write('Feedback.db_enabled', true);
+Configure::write('Feedback', $config);
 
 ?>
